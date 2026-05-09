@@ -44,6 +44,11 @@
   --ring: 240 4.9% 83.9%;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem; /* Sabit header (5rem) + 1rem boşluk payı */
+}
+
 * {
   box-sizing: border-box;
   border: 0 solid hsl(var(--border));
@@ -93,6 +98,8 @@ nav {
   font-weight: 700;
   font-size: 1.5rem; /* Increased logo size */
   letter-spacing: -0.025em;
+  text-decoration: none;
+  color: hsl(var(--foreground));
 }
 
 .nav-links {
@@ -288,6 +295,116 @@ nav {
   }
 }
 
+/* About Section */
+.about-block {
+  padding: 5rem 0;
+  background-color: rgba(255, 255, 255, 0.01);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 4rem;
+}
+
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+.about-bio {
+  font-size: 1.1rem;
+  color: #a1a1aa;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+/* Timeline / Experience */
+.about-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.timeline-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.timeline-content h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.timeline-date {
+  font-size: 0.85rem;
+  color: #71717a;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-content p {
+  font-size: 0.95rem;
+  color: #a1a1aa;
+  line-height: 1.5;
+}
+
+/* Skills */
+.skills-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+}
+
+.skills-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.skill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+  color: #d4d4d8;
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.skill-badge i {
+  font-size: 1.1rem;
+}
+
+.skill-badge:hover {
+  background-color: #ffffff;
+  color: #09090b;
+  transform: translateY(-2px);
+}
+
 /* Projects Section */
 .projects-block {
   padding: 5rem 0;
@@ -303,12 +420,27 @@ nav {
 }
 
 .projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex;
   gap: 2rem;
+  overflow-x: auto;
+  padding-bottom: 2rem; /* Scrollbar için boşluk */
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth; /* Yana kayarken yumuşak animasyon (Gliding efekti) */
+  -webkit-overflow-scrolling: touch;
+  
+  /* Firefox ve IE için Scrollbar Gizleme */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Chrome/Safari için Scrollbar'ı Tamamen Gizleme */
+.projects-grid::-webkit-scrollbar {
+  display: none;
 }
 
 .project-card {
+  flex: 0 0 350px; /* Kartların genişliği sabit kalacak */
+  scroll-snap-align: start;
   background-color: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 1rem;
