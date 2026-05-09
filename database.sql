@@ -1,11 +1,6 @@
--- Portfolyo Projesi Veritabanı Kurulum Dosyası
--- Bu kodları phpMyAdmin üzerinde "SQL" sekmesine yapıştırıp çalıştırın.
-
--- 1. Veritabanını oluştur ve seç
 CREATE DATABASE IF NOT EXISTS portfolyo_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE portfolyo_db;
 
--- 2. Yöneticiler (Admins) Tablosu
 CREATE TABLE IF NOT EXISTS admins (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -13,12 +8,9 @@ CREATE TABLE IF NOT EXISTS admins (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Örnek Admin Ekleme (Kullanıcı adı: admin, Şifre: 123456)
--- Not: Gerçek projelerde şifreler her zaman hash'lenmelidir! Bu hash '123456' içindir (Bcrypt)
 INSERT INTO admins (username, password) 
 VALUES ('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
 
--- 3. Projeler (Projects) Tablosu
 CREATE TABLE IF NOT EXISTS projects (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
@@ -28,13 +20,11 @@ CREATE TABLE IF NOT EXISTS projects (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Örnek Proje Ekleme
 INSERT INTO projects (title, description, image_url, project_url) 
 VALUES 
 ('E-Ticaret Sitesi', 'Modern ve responsive bir alışveriş platformu tasarımı.', 'ecommerce.jpg', '#'),
 ('Banka Uygulaması', 'Güvenli ve hızlı işlem yapılabilen finansal web uygulaması.', 'banking.jpg', '#');
 
--- 4. İletişim Mesajları (Messages) Tablosu
 CREATE TABLE IF NOT EXISTS messages (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
