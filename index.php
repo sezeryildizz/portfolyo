@@ -1,3 +1,15 @@
+<?php
+require_once 'includes/db.php';
+
+// Veritabanından projeleri çek
+try {
+    $stmt = $db->prepare("SELECT * FROM projects ORDER BY created_at DESC");
+    $stmt->execute();
+    $projects = $stmt->fetchAll();
+} catch(PDOException $e) {
+    $projects = [];
+}
+?>
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -77,6 +89,35 @@
             </div>
         </section>
     </main>
+
+    <!-- Projeler Bölümü -->
+    <section id="projects" class="projects-block">
+        <div class="container">
+            <h2 class="section-title">Projelerim</h2>
+            <div class="projects-grid">
+                <?php if(count($projects) > 0): ?>
+                    <?php foreach($projects as $project): ?>
+                        <div class="project-card">
+                            <div class="project-image">
+                                <!-- Proje görseli. Eğer veritabanında varsa assets/images/ altından çeker -->
+                                <img src="assets/images/<?= htmlspecialchars($project['image_url']) ?>" alt="<?= htmlspecialchars($project['title']) ?>">
+                            </div>
+                            <div class="project-info">
+                                <h3><?= htmlspecialchars($project['title']) ?></h3>
+                                <p><?= htmlspecialchars($project['description']) ?></p>
+                                <a href="<?= htmlspecialchars($project['project_url']) ?>" class="project-github-link" target="_blank" rel="noopener noreferrer" title="GitHub'da Görüntüle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                                    Kaynak Kodu Göster
+                                </a>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>Henüz proje eklenmemiş.</p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </section>
 
 </body>
 </html>
