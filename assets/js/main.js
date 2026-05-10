@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     loadProjects();
+    initTheme();
 
     const contactForm = document.getElementById('contactForm');
     
@@ -18,10 +19,27 @@ document.addEventListener('DOMContentLoaded', function() {
             msgBox.innerHTML = '';
 
             const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                message: document.getElementById('message').value
+                name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                message: document.getElementById('message').value.trim()
             };
+
+            if (!formData.name || !formData.email || !formData.message) {
+                msgBox.innerHTML = 'Lütfen tüm alanları doldurun.';
+                msgBox.classList.add('error');
+                btn.innerHTML = originalBtnHtml;
+                btn.disabled = false;
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(formData.email)) {
+                msgBox.innerHTML = 'Geçersiz e-posta adresi.';
+                msgBox.classList.add('error');
+                btn.innerHTML = originalBtnHtml;
+                btn.disabled = false;
+                return;
+            }
 
             fetch('backend/process_contact.php', {
                 method: 'POST',
@@ -96,4 +114,33 @@ function escapeHTML(str) {
     const div = document.createElement('div');
     div.textContent = str;
     return div.innerHTML;
+}
+
+function initTheme() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const moonIcon = document.getElementById('moon-icon');
+    const sunIcon = document.getElementById('sun-icon');
+    const body = document.body;
+
+    const savedTheme = localStorage.getItem('theme') || 'dark-mode';
+    body.className = savedTheme;
+    updateThemeIcons(savedTheme === 'dark-mode');
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const isDark = body.classList.contains('dark-mode');
+            const newTheme = isDark ? 'light-mode' : 'dark-mode';
+            
+            body.className = newTheme;
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcons(newTheme === 'dark-mode');
+        });
+    }
+
+    function updateThemeIcons(isDark) {
+        if(moonIcon && sunIcon) {
+            moonIcon.style.display = isDark ? 'none' : 'block';
+            sunIcon.style.display = isDark ? 'block' : 'none';
+        }
+    }
 }
