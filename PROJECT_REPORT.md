@@ -11,7 +11,7 @@ Bu proje; teknik becerileri ve akademik projeleri sergilemek amacıyla tasarlanm
 
 ## 2. Kullanılan Teknolojiler
 - **Frontend:** HTML5 (Semantik), CSS3 (Flexbox/Grid), Vanilla JavaScript (ES6+).
-- **Backend:** PHP 8.x (Sunucu tarafı mantığı ve Oturum yönetimi).
+- **Backend:** PHP 8.x (Sunucu tarafı mantığı, Oturum ve Çerez yönetimi).
 - **Veritabanı:** MySQL (İlişkisel veri depolama).
 - **Mimari:** Modüler yapı (Frontend, Backend, Includes).
 
@@ -19,27 +19,26 @@ Bu proje; teknik becerileri ve akademik projeleri sergilemek amacıyla tasarlanm
 
 ### A. Semantik HTML ve Gelişmiş CSS
 - SEO ve erişilebilirlik için semantik etiketler (`<header>`, `<main>`, `<section>`) kullanılmıştır.
-- CSS Değişkenleri ve Media Query'ler kullanılarak, mobil, tablet ve masaüstü cihazlarda mükemmel görünüm sağlayan **Duyarlı Tasarım (Responsive Design)** uygulanmıştır.
-- Dinamik bir ızgara (grid) arka planına sahip, **Zinc temelli modern bir kullanıcı arayüzü** tasarımı yapılmıştır.
+- CSS Değişkenleri ve Media Query'ler kullanılarak, her türlü cihazda mükemmel görünüm sağlayan **Responsive Design** uygulanmıştır.
+- Dinamik bir grid arka planına sahip, **Zinc temelli modern bir kullanıcı arayüzü** tasarımı yapılmıştır.
 
 ### B. İstemci Tarafı Etkileşimi (JavaScript)
-- **Dinamik İçerik Yükleme:** Projeler, **Fetch API (AJAX)** aracılığıyla asenkron olarak çekilir ve DOM'a dinamik olarak yerleştirilir.
-- **Tema Yönetimi:** Kullanıcı tercihlerini oturumlar arasında kaydeden, `localStorage` tabanlı kalıcı bir **Karanlık/Aydınlık Mod (Dark/Light Mode)** özelliği eklenmiştir.
-- **Form Doğrulama:** İletişim formu, veri bütünlüğünü sağlamak amacıyla gönderimden önce JavaScript ile istemci tarafında doğrulanmaktadır.
-- **Kullanıcı Deneyimi (UX):** Sayfa yüklenirken ve etkileşim sırasında yumuşak geçiş sağlayan animasyonlar eklenmiştir.
+- **Asenkron Veri (AJAX):** Projeler, **Fetch API** aracılığıyla asenkron olarak çekilir. Bu sayede sayfa yenilenmeden dinamik içerik yüklenir.
+- **Tema Yönetimi (Persistence):** Kullanıcı tercihlerini kaydeden, `localStorage` tabanlı kalıcı bir **Karanlık/Aydınlık Mod** özelliği eklenmiştir.
+- **Gelişmiş Form Doğrulama:** İletişim formu, Regex ve boş alan kontrolü ile JavaScript tarafında doğrulanmadan gönderilmez.
 
 ### C. Sunucu Tarafı Mantığı ve Veritabanı (PHP/MySQL)
-- **İletişim Yönetimi:** İletişim formu aracılığıyla gönderilen mesajlar PHP tarafından işlenir ve MySQL'deki `messages` tablosunda saklanır.
-- **Dinamik Proje Portfolyosu:** Tüm proje verileri (başlık, açıklama, görsel yolu) veritabanında tutulur; bu sayede kod değişikliği yapmadan yeni projeler eklenebilir.
-- **CRUD İşlemleri:** Yönetim Paneli üzerinden projeler için oluşturma, okuma, güncelleme ve silme işlemleri tam kapsamlı olarak yapılabilmektedir.
+- **Mesaj Yönetimi:** Gönderilen mesajlar PHP ile işlenip MySQL veritabanındaki `messages` tablosuna kaydedilir.
+- **Dinamik Proje Yönetimi:** Tüm projeler veritabanından çekilir ve Admin Paneli üzerinden tam kapsamlı **CRUD (Ekle/Sil/Düzenle)** işlemleri yapılabilir.
 
-### D. Güvenlik ve Durum Yönetimi
-- **Oturum Yönetimi:** Yönetici erişimi PHP `$_SESSION` ile kontrol edilmektedir. Yetkisiz kullanıcılar otomatik olarak giriş sayfasına yönlendirilir.
-- **Güvenli Şifreleme:** Yönetici şifreleri, `password_hash()` (Bcrypt) algoritması kullanılarak güvenli bir şekilde şifrelenmiştir.
-- **Veri Güvenliği:** Cross-Site Scripting (XSS) saldırılarını önlemek amacıyla HTML kaçış (escaping) yöntemleri uygulanmıştır.
+### D. Durum Yönetimi ve Güvenlik (Sessions & Cookies)
+- **Oturum Yönetimi (Sessions):** Yönetici yetkilendirmesi PHP `$_SESSION` ile güvenli hale getirilmiştir.
+- **Çerez Kullanımı (Cookies):** Kullanıcının en son giriş yaptığı tarih ve saat bilgisi `setcookie()` fonksiyonu ile bir çerezde saklanır ve Admin Panelinde gösterilir.
+- **Güvenli Şifreleme:** Şifreler veritabanında **Bcrypt (password_hash)** algoritması ile korunmaktadır.
+- **XSS & SQL Injection Koruması:** `escapeHTML` ve PDO `prepared statements` kullanılarak veritabanı ve kullanıcı güvenliği sağlanmıştır.
 
 ## 4. Sonuç
-Bu portfolyo, akademik öğrenim ile profesyonel uygulama arasındaki köprü görevini görmektedir. AJAX, PHP ve MySQL entegrasyonu sayesinde uygulama, güçlü veri kalıcılığı ile kesintisiz bir kullanıcı deneyimi sunmaktadır.
+Bu uygulama; AJAX, PHP ve MySQL entegrasyonu ile modern web standartlarını karşılayan, güvenli ve kullanıcı dostu bir portfolyo sistemidir.
 
 ---
 *Ders yönergelerine uygun olarak, tutkuyla ve yapay zeka destekli hata ayıklama yöntemleriyle geliştirilmiştir.*
